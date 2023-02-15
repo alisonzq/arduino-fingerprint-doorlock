@@ -3,11 +3,11 @@
 
 #define TRANSISTOR_PIN 5
 #define RELAY_PIN 4
-#define ACCESS_DELAY 3000 //nombre de temps déverouillé
 #define TRIG_PIN1 13
 #define ECHO_PIN1 12
 #define TRIG_PIN2 11
 #define ECHO_PIN2 10
+#define ACCESS_DELAY 3000 //nombre de temps déverouillé
 
 SoftwareSerial mySerial(2,3);
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial);
