@@ -36,7 +36,7 @@ void loop() {
     digitalWrite(TRANSISTOR_PIN, HIGH); //Turn on the transistor
     while (!Serial);
     Serial.println("Fingerprint sensor test");
-    finger.begin(57600);
+    finger.begin(57600); //Le capteur fingerprint commence s'allume
     if (finger.verifyPassword()) {
       Serial.println("Found fingerprint sensor!");
       sensorTurnedOn = true;
