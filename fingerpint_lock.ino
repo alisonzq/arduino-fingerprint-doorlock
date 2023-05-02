@@ -35,7 +35,7 @@ void loop() {
   int d1 = ultra1.Distance();
   int d2 = ultra2.Distance();
 
-  //si la distance est moins de 10, le capteur de doigts s'allume
+  //si la distance est moins de 25, le capteur de doigts s'allume
   if (d1 <= 25  && !sensorTurnedOn) { 
     digitalWrite(RELAY_PIN2, HIGH); //Turn on the relay des capteurs
 
