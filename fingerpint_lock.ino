@@ -4,16 +4,18 @@
 #include <LiquidCrystal_I2C.h>
 #include <Wire.h>
 
-#define RELAY_PIN 5
-#define RELAY_PIN2 8
-#define TRIG_PIN1 13
+#define RELAY_PIN 5 //relai pour contrôler l'ouverture du verrou
+#define RELAY_PIN2 8 //relai pour contrôler l'activation de l'écran lcd et le capteur fingerprint
+#define TRIG_PIN1 13 //pins pour ultrason à l'extérieur
 #define ECHO_PIN1 12
-#define TRIG_PIN2 11
+#define TRIG_PIN2 11 //pins pour ultrason à l'intérieur de la porte
 #define ECHO_PIN2 10
-#define SERVO_PIN 9
+#define SERVO_PIN 9 //servo moteur
+#define RX_PIN 3 //pins pour le capteur finigerprint
+#define TX_PIN 2 
 #define ACCESS_DELAY 3500 //nombre de temps que la serrure est déverouillé
 
-SoftwareSerial mySerial(2,3); //branches 2 et 3 pour le capteur fingerprint
+SoftwareSerial mySerial(TX_PIN,RX_PIN); 
 Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial); //définir variable finger
 Servo servo;
 SR04 ultra1 = SR04(ECHO_PIN1,TRIG_PIN1); //ultrason qui active le capteur fingerprint
