@@ -68,24 +68,13 @@ void loop()
     //Indique à l'usager d'entrer le id de l'empreinte à supprimer
     Serial.println("Enter the ID number of the fingerprint to delete:");
     while (!Serial.available()) {}
-    uint16_t idToDelete = Serial.parseInt();
-
-    //Demande à l'usager s'il est certain de son action
-    Serial.println("Do you want to delete this fingerprint? (Y/N)");
-    while (!Serial.available()) {}
-    char confirm = Serial.read();
-    if (confirm == 'Y' || confirm == 'y') {
-      //Ceci supprime l'empreinte de doigts spécifiée
-      if (finger.deleteModel(idToDelete) == FINGERPRINT_OK) {
-        Serial.println("Fingerprint deleted successfully!");
-      } else {
-        Serial.println("Failed to delete fingerprint");
-      }
+    idToDelete = readnumber();
+    
+    //Ceci supprime l'empreinte de doigts spécifiée
+    if (finger.deleteModel(idToDelete) == FINGERPRINT_OK) {
+      Serial.println("Fingerprint deleted successfully!");
     } else {
-      //S'il dit non, on enregistre une nouvelle empreinte
-      Serial.print("Enrolling ID #");
-      Serial.println(idToDelete);
-      while (!getFingerprintEnroll());
+      Serial.println("Failed to delete fingerprint");
     }
   } else {
     Serial.print("Enrolling ID #");
