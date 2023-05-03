@@ -1,34 +1,34 @@
-#include <Adafruit_Fingerprint.h>
-#include "SR04.h"
-#include <Servo.h>
-#include <LiquidCrystal_I2C.h>
-#include <Wire.h>
+#include <Adafruit_Fingerprint.h> //permet d'utiliser un capteur d'empreintes digitale
+#include "SR04.h" //permet d'utiliser des capteurs à ultrasons
+#include <Servo.h> //permet de contrôler un servomoteur
+#include <LiquidCrystal_I2C.h> //permet d'utiliser un écran LCD en mode I2C
+#include <Wire.h> //bibliothèque nécessaire pour communiquer avec le LCD via I2C
 
 #define RELAY_PIN 5 //relai pour contrôler l'ouverture du verrou
 #define RELAY_PIN2 8 //relai pour contrôler l'activation de l'écran lcd et le capteur fingerprint
-#define TRIG_PIN1 13 //pins pour ultrason à l'extérieur
+#define TRIG_PIN1 13 //pins pour ultrason  devant la porte
 #define ECHO_PIN1 12
-#define TRIG_PIN2 11 //pins pour ultrason à l'intérieur de la porte
+#define TRIG_PIN2 11 //pins pour ultrason derrière la porte
 #define ECHO_PIN2 10
 #define SERVO_PIN 9 //servo moteur
 #define RX_PIN 3 //pins pour le capteur finigerprint
 #define TX_PIN 2 
 #define ACCESS_DELAY 3500 //nombre de temps que la serrure est déverouillé
 
-SoftwareSerial mySerial(TX_PIN,RX_PIN); 
-Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial); //définir variable finger
-Servo servo;
-SR04 ultra1 = SR04(ECHO_PIN1,TRIG_PIN1); //ultrason qui active le capteur fingerprint
+SoftwareSerial mySerial(TX_PIN,RX_PIN); //initialise une connexion série logicielle pour communiquer avec le capteur d'empreintes digitales
+Adafruit_Fingerprint finger = Adafruit_Fingerprint(&mySerial); //crée une instance de la classe Adafruit_Fingerprint pour interagir avec le capteur d'empreintes digitales
+Servo servo; //crée une instance de la classe Servo pour contrôler le servomoteur
+SR04 ultra1 = SR04(ECHO_PIN1,TRIG_PIN1); //crée une instance de la classe SR04 pour interagir avec le capteur à ultrasons devant la porte qui permet d'ouvrir le RELAY_PIN2
 SR04 ultra2 = SR04(ECHO_PIN2,TRIG_PIN2); //ultrason en arrière de la porte
-LiquidCrystal_I2C lcd(0x27,16,2);
+LiquidCrystal_I2C lcd(0x27,16,2); //crée une instance de la classe LiquidCrystal_I2C pour interagir avec l'écran LCD via I2C
 
 boolean sensorTurnedOn = false; //bool qui nous permettront de garder trace de l'état des composantes - pour le fingerprint
 boolean lcdInitialized = false; //pour l'iinitialisation du lcd
 
 void setup() {
   Serial.begin(9600);
-  servo.attach(SERVO_PIN); 
-  pinMode(RELAY_PIN, OUTPUT);
+  servo.attach(SERVO_PIN); //initialise le servomoteur
+  pinMode(RELAY_PIN, OUTPUT); //définir les branches comme des sorties pour le contrôle des relais
   pinMode(RELAY_PIN2, OUTPUT);    
 }
 
