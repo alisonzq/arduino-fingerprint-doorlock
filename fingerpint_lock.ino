@@ -54,7 +54,7 @@ void loop() {
     finger.begin(57600); //Le capteur fingerprint s'allume et peut capter des empreintes
     if (finger.verifyPassword()) {
       Serial.println("Found fingerprint sensor!");
-      sensorTurnedOn = true;
+      sensorTurnedOn = true; //la capteur est allumé donc change la variable à vrai
     } else {
       Serial.println("Did not find fingerprint sensor");
       while (1) { delay(1); }
@@ -64,7 +64,7 @@ void loop() {
     lcd.noBacklight(); // turn off the LCD backlight
     digitalWrite(RELAY_PIN2, LOW);  //Turn off the relay & le fingerprint s'éteint
     Serial.println("turned off");    
-    sensorTurnedOn = false; 
+    sensorTurnedOn = false; //la capteur est éteiint donc change la variable à faux
   }
 
   if (getFingerPrint() != -1) //si fingerprint match le verrou s'ouvre
@@ -114,7 +114,7 @@ int getFingerPrint() //fonction qui authentifie l'empreinte
   return finger.fingerID;
 }
 
-
+// les prochaines fonctions sont pour afficher du texte sur l'écran LCD
 void displayWaitFinger() {
   lcd.clear();         
   lcd.backlight(); 
